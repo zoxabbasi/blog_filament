@@ -8,6 +8,7 @@ use Illuminate\View\Component;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 
+
 class Sidebar extends Component
 {
     /**
@@ -27,7 +28,7 @@ class Sidebar extends Component
             ->join('category_post', 'categories.id', '=', 'category_post.category_id')
             ->select('categories.title', 'categories.slug', DB::raw('count(*) as total'))
             ->groupBy([
-                'categories.title', 'categories.slug'
+                'categories.id'
             ])
             ->orderByDesc('total')
             ->get();

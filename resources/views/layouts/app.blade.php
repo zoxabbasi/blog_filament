@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tailwind Blog Template</title>
+<title>{{ $metaTitle ?: 'ZoxAbbasI Blog' }}</title>
     <meta name="author" content="Talal Abbasi">
-    <meta name="description" content="">
+    <meta name="description" content="{{ $metaDescription ?: '' }}">
 
     <!-- Tailwind -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
@@ -25,7 +25,7 @@
         integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
 </head>
 
-<body class="bg-white font-family-karla">
+<body class="bg-gray-50 font-family-karla">
 
     <!-- Top Bar Nav -->
     {{-- <nav class="w-full py-4 bg-blue-800 shadow">
@@ -59,11 +59,11 @@
     <!-- Text Header -->
     <header class="w-full container mx-auto">
         <div class="flex flex-col items-center py-12">
-            <a class="font-bold text-gray-800 uppercase hover:text-gray-700 text-5xl" href="#">
+            <a class="font-bold text-gray-800 uppercase hover:text-gray-700 text-5xl" href="{{ route('home') }}">
                 zoxabbasi blog
             </a>
             <p class="text-lg text-gray-600">
-                {{ App\Models\TextWidget::getContent('header') }}
+                {!! App\Models\TextWidget::getContent('header') !!}
             </p>
         </div>
     </header>
@@ -81,7 +81,7 @@
             <div
                 class="w-full container mx-auto flex flex-col sm:flex-row items-center justify-center text-sm font-bold uppercase mt-0 px-6 py-2">
                 <a href="{{ route('home') }}" class="hover:bg-blue-600 hover:text-white rounded py-2 px-4 mx-2">Home</a>
-                <a href="#" class="hover:bg-blue-600 hover:text-white rounded py-2 px-4 mx-2">About us</a>
+                <a href="{{ route('about-us') }}" class="hover:bg-blue-600 hover:text-white rounded py-2 px-4 mx-2">About us</a>
                 @foreach ($categories as $category)
                     <a href="{{ route('by-category', $category) }}"
                         class="hover:bg-blue-600 hover:text-white rounded py-2 px-4 mx-2">{{ $category->title }}</a>
