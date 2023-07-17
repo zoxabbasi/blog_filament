@@ -11,7 +11,7 @@ use Illuminate\Contracts\View\View;
 class AppLayout extends Component
 {
     /**
-     * Create a new component instance.
+     * Get the view / contents that represents the component.
      */
     public function __construct(public ?string $metaTitle = null,  public ?string $metaDescription = null)
     {
