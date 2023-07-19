@@ -12,6 +12,7 @@
     <!-- Font Awesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
         integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+        @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -19,16 +20,16 @@
 
     <!-- Top Bar Nav -->
     {{-- <nav class="w-full py-4 bg-blue-800 shadow">
-        <div class="w-full container mx-auto flex flex-wrap items-center justify-between">
+        <div class="container flex flex-wrap items-center justify-between w-full mx-auto">
 
             <nav>
-                <ul class="flex items-center justify-between font-bold text-sm text-white uppercase no-underline">
-                    <li><a class="hover:text-gray-200 hover:underline px-4" href="#">Shop</a></li>
-                    <li><a class="hover:text-gray-200 hover:underline px-4" href="#">About</a></li>
+                <ul class="flex items-center justify-between text-sm font-bold text-white no-underline uppercase">
+                    <li><a class="px-4 hover:text-gray-200 hover:underline" href="#">Shop</a></li>
+                    <li><a class="px-4 hover:text-gray-200 hover:underline" href="#">About</a></li>
                 </ul>
             </nav>
 
-            <div class="flex items-center text-lg no-underline text-white pr-6">
+            <div class="flex items-center pr-6 text-lg text-white no-underline">
                 <a class="" href="#">
                     <i class="fab fa-facebook"></i>
                 </a>
@@ -47,9 +48,9 @@
     </nav> --}}
 
     <!-- Text Header -->
-    <header class="w-full container mx-auto">
+    <header class="container w-full mx-auto">
         <div class="flex flex-col items-center py-12">
-            <a class="font-bold text-gray-800 uppercase hover:text-gray-700 text-5xl" href="{{ route('home') }}">
+            <a class="text-5xl font-bold text-gray-800 uppercase hover:text-gray-700" href="{{ route('home') }}">
                 zoxabbasi blog
             </a>
             <p class="text-lg text-gray-600">
@@ -59,25 +60,25 @@
     </header>
 
     <!-- Topic Nav -->
-    <nav class="w-full py-4 border-t border-b bg-gray-100" x-data="{ open: false }">
+    <nav class="w-full py-4 bg-gray-100 border-t border-b" x-data="{ open: false }">
         <div class="block sm:hidden">
             <a href="#"
-                class="block md:hidden text-base font-bold uppercase text-center flex justify-center items-center"
+                class="flex items-center justify-center block text-base font-bold text-center uppercase md:hidden"
                 @click="open = !open">
-                Topics <i :class="open ? 'fa-chevron-down' : 'fa-chevron-up'" class="fas ml-2"></i>
+                Topics <i :class="open ? 'fa-chevron-down' : 'fa-chevron-up'" class="ml-2 fas"></i>
             </a>
         </div>
-        <div :class="open ? 'block' : 'hidden'" class="w-full flex-grow sm:flex sm:items-center sm:w-auto">
-            <div class="w-full container mx-auto flex flex-col sm:flex-row items-center justify-between text-sm font-bold uppercase mt-0 px-6 py-2">
+        <div :class="open ? 'block' : 'hidden'" class="flex-grow w-full sm:flex sm:items-center sm:w-auto">
+            <div class="container flex flex-col items-center justify-between w-full px-6 py-2 mx-auto mt-0 text-sm font-bold uppercase sm:flex-row">
                 <div>
                     <a href="{{ route('home') }}"
-                        class="hover:bg-blue-600 hover:text-white rounded py-2 px-4 mx-2">Home</a>
+                        class="px-4 py-2 mx-2 rounded hover:bg-blue-600 hover:text-white">Home</a>
                     @foreach ($categories as $category)
                         <a href="{{ route('by-category', $category) }}"
-                            class="hover:bg-blue-600 hover:text-white rounded py-2 px-4 mx-2">{{ $category->title }}</a>
+                            class="px-4 py-2 mx-2 rounded hover:bg-blue-600 hover:text-white">{{ $category->title }}</a>
                     @endforeach
                     <a href="{{ route('about-us') }}"
-                        class="hover:bg-blue-600 hover:text-white rounded py-2 px-4 mx-2">About us</a>
+                        class="px-4 py-2 mx-2 rounded hover:bg-blue-600 hover:text-white">About us</a>
                 </div>
                 <div>
                     @auth
@@ -86,11 +87,11 @@
                             <x-dropdown align="right" width="48">
                                 <x-slot name="trigger">
                                     <button
-                                        class="hover:bg-blue-600 hover:text-white rounded py-2 px-4 mx-2 flex items-center">
+                                        class="flex items-center px-4 py-2 mx-2 rounded hover:bg-blue-600 hover:text-white">
                                         <div>{{ Auth::user()->name }}</div>
 
                                         <div class="ml-1">
-                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                            <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 20 20">
                                                 <path fill-rule="evenodd"
                                                     d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -120,9 +121,9 @@
                         </div>
                     @else
                         <a href="{{ route('login') }}"
-                            class="hover:bg-blue-600 hover:text-white rounded py-2 px-4 mx-2">Login</a>
+                            class="px-4 py-2 mx-2 rounded hover:bg-blue-600 hover:text-white">Login</a>
                         <a href="{{ route('register') }}"
-                            class="bg-blue-600 text-white rounded py-2 px-4 mx-2">Register</a>
+                            class="px-4 py-2 mx-2 text-white bg-blue-600 rounded">Register</a>
                     @endauth
                 </div>
             </div>
@@ -130,16 +131,16 @@
     </nav>
 
 
-    <div class="container mx-auto flex flex-wrap py-6">
+    <div class="container flex flex-wrap py-6 mx-auto">
 
         <!-- Posts Section -->
         {{ $slot }}
 
         <!-- Sidebar Section -->
-        {{--     <aside class="w-full md:w-1/3 flex flex-col items-center px-3">
+        {{--     <aside class="flex flex-col items-center w-full px-3 md:w-1/3">
 
-            <div class="w-full bg-white shadow flex flex-col my-4 p-6">
-                <p class="text-xl font-semibold pb-5">Instagram</p>
+            <div class="flex flex-col w-full p-6 my-4 bg-white shadow">
+                <p class="pb-5 text-xl font-semibold">Instagram</p>
                 <div class="grid grid-cols-3 gap-3">
                     <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=1">
                     <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=2">
@@ -152,8 +153,8 @@
                     <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=9">
                 </div>
                 <a href="#"
-                    class="w-full bg-blue-800 text-white font-bold text-sm uppercase rounded hover:bg-blue-700 flex items-center justify-center px-2 py-3 mt-6">
-                    <i class="fab fa-instagram mr-2"></i> Follow @dgrzyb
+                    class="flex items-center justify-center w-full px-2 py-3 mt-6 text-sm font-bold text-white uppercase bg-blue-800 rounded hover:bg-blue-700">
+                    <i class="mr-2 fab fa-instagram"></i> Follow @dgrzyb
                 </a>
             </div>
 
@@ -161,10 +162,10 @@
 
     </div>
 
-    <footer class="w-full border-t bg-white pb-12">
-        {{-- <div class="relative w-full flex items-center invisible md:visible md:pb-12" x-data="getCarouselData()">
+    <footer class="w-full pb-12 bg-white border-t">
+        {{-- <div class="relative flex items-center invisible w-full md:visible md:pb-12" x-data="getCarouselData()">
             <button
-                class="absolute bg-blue-800 hover:bg-blue-700 text-white text-2xl font-bold hover:shadow rounded-full w-16 h-16 ml-12"
+                class="absolute w-16 h-16 ml-12 text-2xl font-bold text-white bg-blue-800 rounded-full hover:bg-blue-700 hover:shadow"
                 x-on:click="decrement()">
                 &#8592;
             </button>
@@ -172,19 +173,19 @@
                 <img class="w-1/6 hover:opacity-75" :src="image">
             </template>
             <button
-                class="absolute right-0 bg-blue-800 hover:bg-blue-700 text-white text-2xl font-bold hover:shadow rounded-full w-16 h-16 mr-12"
+                class="absolute right-0 w-16 h-16 mr-12 text-2xl font-bold text-white bg-blue-800 rounded-full hover:bg-blue-700 hover:shadow"
                 x-on:click="increment()">
                 &#8594;
             </button>
         </div> --}}
-        <div class="w-full container mx-auto flex flex-col items-center">
-            {{-- <div class="flex flex-col md:flex-row text-center md:text-left md:justify-between py-6">
-                <a href="#" class="uppercase px-3">About Us</a>
-                <a href="#" class="uppercase px-3">Privacy Policy</a>
-                <a href="#" class="uppercase px-3">Terms & Conditions</a>
-                <a href="#" class="uppercase px-3">Contact Us</a>
+        <div class="container flex flex-col items-center w-full mx-auto">
+            {{-- <div class="flex flex-col py-6 text-center md:flex-row md:text-left md:justify-between">
+                <a href="#" class="px-3 uppercase">About Us</a>
+                <a href="#" class="px-3 uppercase">Privacy Policy</a>
+                <a href="#" class="px-3 uppercase">Terms & Conditions</a>
+                <a href="#" class="px-3 uppercase">Contact Us</a>
             </div> --}}
-            <div class="uppercase py-6">&copy; myblog.com</div>
+            <div class="py-6 uppercase">&copy; myblog.com</div>
         </div>
     </footer>
 
@@ -212,7 +213,7 @@
         //     }
         // }
     </script>
-
+@livewireScripts
 </body>
 
 </html>
