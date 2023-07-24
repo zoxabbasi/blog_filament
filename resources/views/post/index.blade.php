@@ -4,28 +4,28 @@
 
 <x-app-layout>
     <!-- Posts Section -->
-    <section class="w-full md:w-2/3 flex flex-col items-center px-3">
+    <section class="flex flex-col items-center w-full px-3 md:w-2/3">
 
         @foreach ($posts as $post)
             {{-- <x-post-item> :post="$post" </x-post-item> --}}
-            <article class="flex flex-col shadow my-4">
+            <article class="flex flex-col my-4 shadow">
                 <!-- Article Image -->
                 <a href="{{ route('post.show', $post) }}" class="hover:opacity-75">
                     <img src="/storage/{{ $post->thumbnail }}">
                 </a>
-                <div class="bg-white flex flex-col justify-start p-6">
+                <div class="flex flex-col justify-start p-6 bg-white">
                     @foreach ($post->categories as $catagory)
                         <a href="{{ route('post.show', $post) }}"
-                            class="text-blue-700 text-sm font-bold uppercase pb-4">{{ $catagory->title }}</a>
+                            class="pb-4 text-sm font-bold text-blue-700 uppercase">{{ $catagory->title }}</a>
                     @endforeach
-                    <a href="#" class="text-3xl font-bold hover:text-gray-700 pb-4">{{ $post->title }}</a>
-                    <p href="#" class="text-sm pb-3">
+                    <a href="#" class="pb-4 text-3xl font-bold hover:text-gray-700">{{ $post->title }}</a>
+                    <p href="#" class="pb-3 text-sm">
                         By <a href="#" class="font-semibold hover:text-gray-800">{{ $post->user->name }}</a>,
                         Published on
-                        {{ $post->getFormatedDate() }}
+                        {{ $post->getFormatedDate() }} | {{ $post->humanReadTime }}
                     </p>
                     <a href="{{ route('post.show', $post) }}" class="pb-6">{!! $post->shortBody() !!}</a>
-                    <a href="#" class="uppercase text-gray-800 hover:text-black">Continue Reading <i
+                    <a href="#" class="text-gray-800 uppercase hover:text-black">Continue Reading <i
                             class="fas fa-arrow-right"></i></a>
                 </div>
             </article>

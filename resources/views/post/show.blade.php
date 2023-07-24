@@ -19,7 +19,7 @@
                  <p href="#" class="pb-8 text-sm">
                      By <a href="#" class="font-semibold hover:text-gray-800">{{ $post->user->name }}</a>,
                      Published on
-                     {{ $post->getFormatedDate() }}
+                     {{ $post->getFormatedDate() }} | {{ $post->human_read_time }}
                  </p>
                  <div>
                      {!! $post->body !!}
