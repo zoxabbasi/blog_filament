@@ -22,7 +22,7 @@
                     <p href="#" class="pb-3 text-sm">
                         By <a href="#" class="font-semibold hover:text-gray-800">{{ $post->user->name }}</a>,
                         Published on
-                        {{ $post->getFormatedDate() }} | {{ $post->humanReadTime }}
+                        {{ $post->getFormatedDate() }} | {{ $post->human_read_time }}
                     </p>
                     <a href="{{ route('post.show', $post) }}" class="pb-6">{!! $post->shortBody() !!}</a>
                     <a href="#" class="text-gray-800 uppercase hover:text-black">Continue Reading <i

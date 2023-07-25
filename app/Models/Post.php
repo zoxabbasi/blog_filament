@@ -41,10 +41,11 @@ class Post extends Model
         return $this->belongsToMany(Category::class);
     }
 
-    public function shortBody(): string
+    public function shortBody($words = 30): string
     {
-        return Str::words(strip_tags($this->body), 30);
+        return Str::words(strip_tags($this->body), $words);
     }
+    // $words will be by default 30 until specified otherwise
 
     public function getFormatedDate()
     {
@@ -61,8 +62,8 @@ class Post extends Model
 
                 $minutes =  ceil($words / 200);
 
-                return $minutes . ' ' .str('min')->plural($minutes) . ', '
-                    . $words . ' '. str('words')->plural($words);
+                return $minutes . ' ' . str('min')->plural($minutes) . ', '
+                    . $words . ' ' . str('words')->plural($words);
             }
         );
     }
