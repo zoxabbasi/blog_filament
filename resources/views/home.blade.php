@@ -21,7 +21,9 @@
                         <img src="/storage/{{ $post->thumbnail }}" alt="{{ $post->title }}">
                     </a>
                     <div class="col-span-3">
-                    <a href="{{ route('post.show', $post) }}"><h3 class="text-sm uppercase truncate">{{ $post->title }}</h3></a>
+                        <a href="{{ route('post.show', $post) }}">
+                            <h3 class="text-sm uppercase truncate">{{ $post->title }}</h3>
+                        </a>
                         <div class="flex gap-4 mb-2">
                             @foreach ($post->categories as $catagory)
                                 <a href="#"
@@ -31,7 +33,8 @@
                             @endforeach
                         </div>
                         <div class="text-xs">{{ $post->shortBody(15) }}</div>
-                        <a href="{{ route('post.show', $post) }}" class="text-xs text-gray-800 uppercase hover:text-black">
+                        <a href="{{ route('post.show', $post) }}"
+                            class="text-xs text-gray-800 uppercase hover:text-black">
                             Continue Reading
                             <i class="fas fa-arrow-right"></i>
                         </a>
@@ -45,6 +48,11 @@
         <h2 class="pb-1 mb-3 text-lg font-bold text-blue-500 uppercase border-b-2 border-blue-500 sm:text-xl">
             Recomended Posts
         </h2>
+        <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
+            @foreach ($recommendedPosts as $post)
+                <x-post-item :post="$post" :show-author="false"/>
+            @endforeach
+        </div>
     </div>
 
     <div>

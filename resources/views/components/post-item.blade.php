@@ -6,10 +6,12 @@
     </a>
     <div class="flex flex-col justify-start p-6 bg-white">
         <a href="#" class="pb-4 text-3xl font-bold hover:text-gray-700">{{ $post->title }}</a>
-        <p href="#" class="pb-3 text-sm">
-            By <a href="#" class="font-semibold hover:text-gray-800">{{ $post->user->name }}</a>, Published on
-            {{ $post->published_at }} | {{ $post->human_read_time }}
-        </p>
+        @if ($showAuthor)
+            <p href="#" class="pb-3 text-sm">
+                By <a href="#" class="font-semibold hover:text-gray-800">{{ $post->user->name }}</a>, Published on
+                {{ $post->published_at }} | {{ $post->human_read_time }}
+            </p>
+        @endif
         <a href="{{ route('post.show', $post) }}" class="pb-6">{{ $post->shortBody() }}</a>
         <a href="{{ route('post.show', $post) }}" class="text-gray-800 uppercase hover:text-black">
             Continue Reading
