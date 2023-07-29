@@ -50,15 +50,25 @@
         </h2>
         <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
             @foreach ($recommendedPosts as $post)
-                <x-post-item :post="$post" :show-author="false"/>
+                <x-post-item :post="$post" :show-author="false" />
             @endforeach
         </div>
     </div>
 
-    <div>
+    <div class="mb-8">
         <h2 class="pb-1 mb-3 text-lg font-bold text-blue-500 uppercase border-b-2 border-blue-500 sm:text-xl">
             Recent Catagories
         </h2>
+        @foreach ($categories as $categorie)
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-center">{{ $categorie->title }}</h3>
+                <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
+                    @foreach ($categorie->publishedPosts()->limit(3)->get() as $post)
+                        <x-post-item :post="$post" :show-author="false" />
+                    @endforeach
+                </div>
+            </div>
+        @endforeach
     </div>
     {{-- To display 10 posts --}}
     <!-- Posts Section -->

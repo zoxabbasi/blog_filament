@@ -2,7 +2,7 @@
 <article class="flex flex-col my-4 shadow">
     <!-- Article Image -->
     <a href="#" class="hover:opacity-75">
-        <img src="{{ $post->thumbnail }}">
+        <img src="{{ $post->thumbnail }}" alt="{{ $post->title }}" class="aspect-[2/3] object-contain">
     </a>
     <div class="flex flex-col justify-start p-6 bg-white">
         <a href="#" class="pb-4 text-3xl font-bold hover:text-gray-700">{{ $post->title }}</a>

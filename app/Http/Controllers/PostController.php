@@ -24,6 +24,8 @@ class PostController extends Controller
         //     ->whereDate('published_at', '<', Carbon::now())
         //     ->orderBy('published_at', 'desc')
         //     ->paginate(10);
+        // return view('home', compact('posts'));
+
 
         // Latest post
         $latestPost = Post::where('active', '=', 1)
@@ -65,6 +67,7 @@ class PostController extends Controller
                 ->limit(3)
                 ->get();
         } else {
+            // If not authorized = Recomended posts based on the number of views
             $recommendedPosts = Post::query()
                 ->leftJoin('post_views', 'posts.id', '=', 'post_views.post_id')
                 ->select('posts.*', DB::raw('COUNT(post_views.id) as view_count'))
@@ -76,13 +79,26 @@ class PostController extends Controller
                 ->get();
         }
 
-        // If not authorized = Recomended posts based on the number of views
-
-
         // Recent catagories with there latest posts
-        // return view('home', compact('posts'));
+        $categories = Category::query()
+            // ->with(['posts' => function ($query) {
+            //     $query->orderByDesc('published_at')->limit(3);
+            // }])
+            ->whereHas('posts', function($query){
+                $query
+                ->where('active', '=', 1)
+                ->whereDate('published_at', '<', Carbon::now());
+            })
+            ->select('categories.*')
+            ->selectRaw('MAX(posts.published_at) as max_date')
+            ->leftJoin('category_post', 'categories.id', '=', 'category_post.category_id')
+            ->leftJoin('posts', 'posts.id', '=', 'category_post.post_id')
+            ->orderByDesc('max_date')
+            ->groupBy('categories.id')
+            ->limit(5)
+            ->get();
 
-        return view('home', compact('latestPost', 'popularPost', 'recommendedPosts'));
+        return view('home', compact('latestPost', 'popularPost', 'recommendedPosts', 'categories'));
     }
 
     /**
