@@ -1,8 +1,8 @@
 {{-- @props(['post']) --}}
 <article class="flex flex-col my-4 shadow">
     <!-- Article Image -->
-    <a href="#" class="hover:opacity-75">
-        <img src="{{ $post->thumbnail }}" alt="{{ $post->title }}" class="aspect-[2/3] object-contain">
+    <a href="{{ route('post.show', $post) }}" class="hover:opacity-75">
+        <img class="aspect-[2/4] object-cover" src="{{ $post->thumbnail }}" alt="{{ $post->title }}">
     </a>
     <div class="flex flex-col justify-start p-6 bg-white">
         <a href="#" class="pb-4 text-3xl font-bold hover:text-gray-700">{{ $post->title }}</a>

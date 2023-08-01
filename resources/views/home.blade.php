@@ -44,32 +44,32 @@
         </div>
     </div>
 
-    <div>
+    <div class="mt-8">
         <h2 class="pb-1 mb-3 text-lg font-bold text-blue-500 uppercase border-b-2 border-blue-500 sm:text-xl">
             Recomended Posts
         </h2>
-        <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
             @foreach ($recommendedPosts as $post)
                 <x-post-item :post="$post" :show-author="false" />
             @endforeach
         </div>
     </div>
 
-    <div class="mb-8">
-        <h2 class="pb-1 mb-3 text-lg font-bold text-blue-500 uppercase border-b-2 border-blue-500 sm:text-xl">
-            Recent Catagories
-        </h2>
-        @foreach ($categories as $categorie)
+    @foreach ($categories as $categorie)
+        <div class="mt-8 mb-1">
+            <h2 class="pb-1 mb-3 text-lg font-bold text-blue-500 uppercase border-b-2 border-blue-500 sm:text-xl">
+                {{ $categorie->title }}
+                <a href="{{ route('by-category', $categorie) }}"><i class="fas fa-arrow-right"></i></a>
+            </h2>
             <div class="mb-6">
-                <h3 class="text-xl font-bold text-center">{{ $categorie->title }}</h3>
-                <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
+                <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
                     @foreach ($categorie->publishedPosts()->limit(3)->get() as $post)
                         <x-post-item :post="$post" :show-author="false" />
                     @endforeach
                 </div>
             </div>
-        @endforeach
-    </div>
+        </div>
+    @endforeach
     {{-- To display 10 posts --}}
     <!-- Posts Section -->
     {{-- <section class="flex flex-col items-center w-full px-3 md:w-2/3"> --}}
@@ -95,8 +95,7 @@
                         {{ $post->getFormatedDate() }}
                     </p>
                     <a href="{{ route('post.show', $post) }}" class="pb-6">{!! $post->shortBody() !!}</a>
-                    <a href="#" class="text-gray-800 uppercase hover:text-black">Continue Reading <i
-                            class="fas fa-arrow-right"></i></a>
+                    <a href="#" class="text-gray-800 uppercase hover:text-black">Continue Reading  </a>
                 </div>
             </article>
         @endforeach --}}
