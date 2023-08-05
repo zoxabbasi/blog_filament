@@ -1,6 +1,6 @@
  <x-app-layout :meta-title="$post->meta_title ?: $post->title" :meta-description="$post->meta_description">
      <!-- Post Section -->
-     <section class="flex flex-col items-center w-full px-3 md:w-2/3">
+     <section class="flex flex-col w-full px-3 md:w-2/3">
 
          <article class="flex flex-col my-4 shadow">
              <!-- Article Image -->
@@ -58,6 +58,9 @@
                  @endif
              </div>
          </div>
+
+         {{-- Comments Section --}}
+         @livewire('comments', ['post' => $post])
 
          {{-- <div class="flex flex-col w-full p-6 mt-10 mb-10 text-center bg-white shadow md:text-left md:flex-row">
              <div class="flex justify-center w-full pb-4 md:w-1/5 md:justify-start">
