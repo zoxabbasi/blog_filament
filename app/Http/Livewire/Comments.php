@@ -22,7 +22,8 @@ class Comments extends Component
     // This mount function will accept the post that has been passed in the compnent as a prop
 
     protected $listeners = [
-        'commentCreated' => 'commentCreated'
+        'commentCreated' => 'commentCreated',
+        'commentDeleted' => 'commentDeleted'
     ];
     // Event Listener
 
@@ -31,11 +32,19 @@ class Comments extends Component
         return view('livewire.comments');
     }
 
-    public function commentCreated(int $id){
+    public function commentCreated(int $id)
+    {
         // dd('1234');
         // If our code reaches here it will dd 1234
 
         $comment = Comment::where('id', '=', $id)->first();
         $this->comments = $this->comments->prepend($comment);
+    }
+
+    public function commentDeleted(int $id)
+    {
+        $this->comments = $this->comments->reject(function ($comment) use ($id) {
+            return $comment->id == $id;
+        });
     }
 }

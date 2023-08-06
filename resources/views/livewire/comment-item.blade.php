@@ -9,17 +9,21 @@
         </div>
         <div>
             <div>
-                <a href="" class="font-semibold text-blue-600">Talal Abbasi</a>
+                <a href="" class="font-semibold text-blue-600">{{ $comment->user->name }}</a>
                 - <span class="text-gray-500">{{ $comment->created_at->diffForHumans() }}</span>
             </div>
-            <div class="text-gray-700 ">
-                {{ $comment->comment }}
-            </div>
+            @if ($editing)
+                @livewire('comment-create', ['commentModel' => $comment])
+            @else
+                <div class="text-gray-700 ">
+                    {{ $comment->comment }}
+                </div>
+            @endif
             <div>
                 <a href="#" class="mr-3 text-sm text-blue-600">Reply</a>
                 @if (Auth::id() == $comment->user_id)
-                    <a href="#" class="mr-3 text-sm text-green-600">Edit</a>
-                    <a href="#" class="mr-3 text-sm text-red-600">Delete</a>
+                    <a wire:click.prevent="editComment" href="#" class="mr-3 text-sm text-green-600">Edit</a>
+                    <a wire:click.prevent="deleteComment" href="#" class="mr-3 text-sm text-red-600">Delete</a>
                 @endif
             </div>
         </div>

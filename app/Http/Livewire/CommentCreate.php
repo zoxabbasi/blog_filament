@@ -13,9 +13,14 @@ class CommentCreate extends Component
     public $post;
     // Creating a Post varable
 
-    public function mount(Post $post)
+    public ?Comment $commentModel = null;
+
+    public function mount(Post $post, $commentModel = null)
     {
         $this->post = $post;
+        $this->commentModel = $commentModel;
+        $this->comment = $commentModel ?  $commentModel->comment : '';
+        // dd($commentModel);
     }
     // This mount function will accept the post that has been passed in the compnent as a prop
 
@@ -30,15 +35,30 @@ class CommentCreate extends Component
         if (!$user) {
             return redirect('/login');
         }
-        $comment = Comment::create([
-            'comment' => $this->comment,
-            'post_id' => $this->post->id,
-            'user_id' => $user->id,
-        ]);
+        if ($this->commentModel) {
+            if ($this->commentModel->user_id != $user->id) {
+                return response('You are not allowed to perform this action', 403);
+            }
+            $this->commentModel->comment = $this->comment;
+            $this->commentModel->save();
+            $this->comment = '';
+            $this->emitUp('commentUpdated');
+        } else {
+            $user = auth()->user();
+            if (!$user) {
+                return redirect('/login');
+            }
+            $comment = Comment::create([
+                'comment' => $this->comment,
+                'post_id' => $this->post->id,
+                'user_id' => $user->id,
+            ]);
 
-        $this->emitUp('commentCreated', $comment->id);
-        // This will tell the parent to autoload the comment that was
-        $this->comment = '';
-        // To clear the textarea from the previous comment
+            $this->emitUp('commentCreated', $comment->id);
+            // This will tell the parent to autoload the comment that was created
+            $this->comment = '';
+            // To clear the textarea from the previous comment
+        }
+        //    If commentModel exists then we are in edit mode, orelse we are in create mode
     }
 }
